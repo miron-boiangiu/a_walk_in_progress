@@ -1,0 +1,150 @@
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+  }
+  
+  /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+  .row.content {height: 90vh}
+  
+  /* Set gray background color and 100% height */
+  .sidenav {
+    padding-top: 20px;
+    background-color: #a0afb7;
+    height: 100%;
+  }
+  
+  /* Set black background color, white text and some padding */
+  footer {
+    position: absolute;
+    bottom:0;
+    width:100%;
+    background-color: #7e898f;
+    color: white;
+    padding: 5px;
+  }
+  
+  
+  /* On small screens, set height to 'auto' for sidenav and grid */
+  @media screen and (max-width: 767px) {
+    .sidenav {
+      height: auto;
+      padding: 15px;
+    }
+    .row.content {height:auto;} 
+  }
+
+.game_name{
+    text-align: center;
+}
+
+.description_game{
+    padding: 2vw;
+}
+
+.play_btn {
+    color: #ffffff;
+    background-color: #32c2bb;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 30px;
+    border: 1px solid #2164d3;
+    border-radius: 20px;
+    padding: 15px 50px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+
+}
+.play_btn:hover {
+    color: #2d63c8;
+    background-color: #ffffff;
+}
+
+.class_to_align{
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.contdiv{
+    margin-top: 5vh;
+}
+
+.card {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.gutters-sm {
+    margin-right: -8px;
+    margin-left: -8px;
+}
+
+.gutters-sm>.col, .gutters-sm>[class*=col-] {
+    padding-right: 8px;
+    padding-left: 8px;
+}
+.mb-3, .my-3 {
+    margin-bottom: 1rem!important;
+}
+
+.bg-gray-300 {
+    background-color: #e2e8f0;
+}
+.h-100 {
+    height: 100%!important;
+}
+.shadow-none {
+    box-shadow: none!important;
+}
+
+.text_font{
+    font-size: large;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.colapse_div{
+    width: 40vw;
+    
+}
+
+.happy{
+    width: 38,5vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    font-size: medium;
+}
+
+.change-avatar{
+    margin-top: 10%;
+}
+
+.maijos{
+    margin-top: 4%;
+}
+
+#clickMe{
+    margin-top: 10%;
+    margin-bottom: 5%;
+}

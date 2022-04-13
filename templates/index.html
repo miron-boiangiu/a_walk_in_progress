@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>Explore</title>
+    
+
+
+
+    <LINK href="/public/style.css" rel="stylesheet" type="text/css">
+ 
+ 
+ 
+      </head>
+ 
+ 
+  <body>
+
+
+    <h3>My Google Maps Demo</h3>
+    <!--The div element for the map -->
+    <div id="map"></div>
+    <div id="text">Distance to Poli: <div id="info"></div></div>
+    
+    <div id="win" style="display: none">Finished!</div>
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    
+    <script>
+
+      let current_quest = {{ current_quest }};
+      let home = {{ quest[3] }} ; //Starting point
+      let destination=[ {{ quest[4] }} ] ; //Destinations
+      </script>
+      <script src="/public/script.js"></script> 
+    
+    
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTuBkxRqR1gC_wL6syQ-x-aOiJGU4Vo9M&callback=initMap&v=weekly"
+      async
+    ></script>
+  </body>
+</html>

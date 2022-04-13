@@ -1,0 +1,77 @@
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+  }
+  
+
+  body{
+    overflow: hidden;
+  }
+  /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+  .row.content {height: 100vh}
+  
+  /* Set gray background color and 100% height */
+  .sidenav {
+    padding-top: 20px;
+    background-color: #a0afb7;
+    height: 100%;
+  }
+  
+  /* Set black background color, white text and some padding */
+  footer {
+    position: absolute;
+    bottom:0;
+    width:100%;
+    background-color: #7e898f;
+    color: white;
+    padding: 5px;
+
+  }
+  
+  /* On small screens, set height to 'auto' for sidenav and grid */
+  @media screen and (max-width: 780px) {
+    .sidenav {
+      height: auto;
+      padding: 15px;
+    }
+    .row.content {height:auto;} 
+  }
+
+.game_name{
+    text-align: center;
+    font-size: 50px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.description_game{
+    padding: 2vw;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.play_btn {
+    color: #ffffff;
+    background-color: #7391C8;
+    font-size: 30px;
+    border: 1px solid #ffffff;
+    border-radius: 20px;
+    padding: 15px 50px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+
+}
+.play_btn:hover {
+    background-color: #52688F;
+}
+
+.class_to_align{
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+    display: flex;
+    justify-content: center;
+}
+
+.color1{
+  color: #ffffff;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}

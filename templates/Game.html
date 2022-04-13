@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/public/game.css">
+    <title>A walk in progress - Trip</title>
+
+
+    
+</head>
+<body class="body1" {% if got_request %}style="background-color: black" {% endif %}>
+    <!-- <div class="container-fluid">
+        ...
+    </div> -->
+
+    <div class="container-fluid">
+        <div class="row align-items-start">
+
+        <div id="stanga" class="col-sm col1" {% if got_request %}style="background-color: black" {% endif %} >
+        <div id = "divnomap" class="col-sm col1"  {% if got_request %}style="display: none" {% endif %}> 
+               <p class="city_title"><b> Choose a tour: </b></p>
+               <div>
+                   <form name = "myform" action="" method="get">
+                       <figure>
+                           
+                           <ul class="sparklist">
+                            <input  id = "game_id" type="text" value="" name="game_id" style="display:none">
+                            {% for quest in all_quests %}
+
+                            <li>
+                                
+                               <input onclick="DoSubmit( {{ loop.index }} )" type="submit" value="{{ quest[2] }}" class="buton_de_submit">
+                               <span class="sparkline">
+                               <img src="{{ quest[8] }}" width="100px" height="70px" style="border: 1px solid;  color: #546480; margin-left: 25px;">
+                               </span>
+                           </li>
+                            {% endfor %}
+                               <!--
+                               <li>
+                                    <input  id = "game_id" type="text" value="" name="game_id" style="display:none">
+                                   <input onclick="DoSubmit(1)" type="submit" value="Bucharest #1" class="buton_de_submit">
+                                   <span class="sparkline">
+                                   <img src="/public/regie.jpg" width="100px" height="70px" style="border: 1px solid;  color: #546480;">
+                                   </span>
+                               </li>
+                               <li>
+                                   <input onclick="DoSubmit(2)" type="submit" value="Bucharest #2" class="buton_de_submit">
+                                   <span class="sparkline">
+                                    <img src="/public/mcromana.jpg" width="100px" height="70px" style="border: 1px solid;  color: #546480;">
+                                   </span>
+                               </li>
+                               <li>
+                                   <input onclick="DoSubmit(3)" type="submit" value="Bucharest #3" class="buton_de_submit">
+                                   <span class="sparkline">
+                                    <img src="/public/piata.jpg" width="100px" height="70px" style="border: 1px solid;  color: #546480;">
+                                   </span>
+                               </li>
+                               <li>
+                                   <input onclick="DoSubmit(4)" type="submit" value="Bucharest #4" class="buton_de_submit">
+                                   <span class="sparkline">
+                                    <img src="/public/biblioteca.jpg" width="100px" height="70px" style="border: 1px solid;  color: #546480;">
+                                   </span>
+                               </li>
+                            -->
+                               </ul>
+                       </figure>
+                   </form>
+               </div> 
+
+            
+            
+            </div>
+        <div class="col-sm col1" id="map"> </div>
+
+
+        </div>
+
+
+
+
+
+        <div id="col-3">   
+            <div id="myDIV" {% if got_request %}style="display: none"{% endif %}>
+                <div class="descriere-joc" style="padding-top: 20vh;"> 
+                    Choose one of the different scenarios.
+                    <br><br>
+                    Controls: MOUSE
+                    <br><br>
+                    In this panel there will be displayed:
+                    <ul>
+                        <li> All places that must be reached in the level</li>
+                        <br>
+                        <li> The distance from the player to each destination</li>
+                        <br>
+                        <li> A description and some bits of trivia for each place that has been reached</li>
+                        <br>
+                        <li> A pop-up notification for when the player has been standing still for too long</li>
+                    </ul>
+                </div>    
+            </div>
+                    <div id="divdeaparut" {% if got_request %} style="display: inline" {% else %}style="display: none"{% endif %} class="border_dreapta">
+                        <ul class="column1">
+                            <li id = "distance1" class="li1"><p id="at1" style="display:inline">(distanta)</p></li>
+                            <li id = "distance2" class="li1"><p id="at2" style="display:inline">(distanta)</p></li>
+                            <li id = "distance3" class="li1"><p id="at3" style="display:inline">(distanta)</p></li>
+                            <li id = "distance4" class="li1"><p id="at4" style="display:inline">(distanta)</p></li>
+                            <li id = "distance5" class="li1"><p id="at5" style="display:inline">(distanta)</p></li>
+                        </ul>
+                        <div id="popup" style="visibility: hidden;"><b>Hey, move or something!</b></div>
+
+
+
+                    <div class="container colapse_div">
+                        <h2 id = "name of destination1" class="center_this">You have reached: </h2>
+                        <h1 id = "name_of_destination2" class="center_this">Visit a landmark!</h1>
+                        <div class="panel-group">
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse1">Details</a>
+                              </h4>
+                            </div>
+                            <div id="collapse1" class="panel-collapse collapse">
+                              <ul id = "lista-dreapta" class="list-group">
+
+                                <li id = "descriere" class="list-group-item happy">Landmark descriptions</li>
+
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <a href="/endtrip" id = "endTrip" class="li3"><p id="at1" style="display:inline"><b>END TRIP</b></p></a>
+                    
+            </div>
+          </div>
+
+
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("myDIV");
+        if (x.style.display === "none") {
+                x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+        // var altceva = document.getElementById("map");
+        // if (altceva.style.display === "none") {
+        //     altceva.style.display = "block";
+        // } else {
+        //     altceva.style.display = "none";
+        //}
+        var inca_ceva = document.getElementById("divnomap");
+        if (inca_ceva.style.display === "none") {
+            inca_ceva.style.display = "block";
+        } else {
+            inca_ceva.style.display = "none";
+            document.getElementById("stanga").style.backgroundColor="black";
+        }
+
+        var y = document.getElementById("hidebtn");
+        if (y.style.display === "none") {
+                y.style.display = "block";
+        } else {
+            y.style.display = "none";
+        }
+        var z = document.getElementById("divdeaparut");
+        if (z.style.display === "none") {
+                z.style.display = "block";
+        } else {
+            z.style.display = "none";
+        }
+
+    }
+
+
+
+        //pop up
+        function showDiv1() {
+            document.getElementById("popup").style.visibility = "visible";
+        }
+            var timeout = setTimeout("showDiv1()", 10000); // after 15 sec
+</script>
+<script>
+    let current_quest = {{ current_quest }};
+    let home = {{ quest[3] }} ; //Starting point
+    let destination=[ {{ quest[4] }} ] ; //Destinations
+
+    let names= [ {{ quest[5] | safe}} ] ;
+    let descrieri= [ {{ quest[6] | safe}} ] ;
+    let trivia=  {{ quest[7] | safe }} ;
+    console.log(names);
+    </script>
+    <script src="/public/script.js"></script>     
+
+
+<script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTuBkxRqR1gC_wL6syQ-x-aOiJGU4Vo9M&callback=initMap&v=weekly"
+      async
+    ></script>
+</body>
+</html>
