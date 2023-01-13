@@ -1,80 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <title>A walk in progress - Login</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="/public/login_page.css">
+    <link rel="shortcut icon"
+          href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>A walk in progress - Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/public/login_page.css">
 
 </head>
 <body>
 
 {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: medium;"><b>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </b></ul>
-  {% endif %}
+    {% if messages %}
+        <ul class=flashes
+            style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: medium;">
+            <b>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </b></ul>
+    {% endif %}
 {% endwith %}
 {% block body %}{% endblock %}
 <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="/profile">Profile</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if not session['username'] %}
+                    <li><a href="/login"><span
+                            class="glyphicon glyphicon-log-in"></span> Login</a>
+                    </li>
+                {% else %}
+                    <li><a href="/logout"><span
+                            class="glyphicon glyphicon-log-in"> Logged in as {{ session['username'] }}, click to log out.</span>
+                    </a></li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li><a href="/">Home</a></li>
-        <li><a href="/profile">Profile</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        {% if not session['username'] %}
-        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        {% else %}
-        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"> Logged in as {{ session['username'] }}, click to log out.</span> </a></li>
-        {% endif %}
-      </ul>
-    </div>
-  </div>
 </nav>
-  
 
-<div class="container-fluid text-center center-div"> 
-<form action="" method="post">
-    <div class="container">
-      <label for="uname" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"><b>Username / Email</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
-  
-      <label for="psw" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-          
-      <button type="submit" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Login</button>
-      <a href="/signup" class="buttonSignup" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"> Sign up</a>
-      <label>
-        <input type="checkbox" checked="checked" name="remember" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"> Remember me
-      </label>
-    </div>
-  
-    <div class="container">
-      <button type="reset" class="cancelbtn" name="cancel" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Reset</button>
-    </div>
-    <br>
-</form>
+
+<div class="container-fluid text-center center-div">
+    <form action="" method="post">
+        <div class="container">
+            <label for="uname"
+                   style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"><b>Username
+                / Email</b></label>
+            <input type="text" placeholder="Enter Username" name="uname"
+                   required>
+
+            <label for="psw"
+                   style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw"
+                   required>
+
+            <button type="submit"
+                    style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                Login
+            </button>
+            <a href="/signup" class="buttonSignup"
+               style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                Sign up</a>
+            <label>
+                <input type="checkbox" checked="checked" name="remember"
+                       style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                Remember me
+            </label>
+        </div>
+
+        <div class="container">
+            <button type="reset" class="cancelbtn" name="cancel"
+                    style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                Reset
+            </button>
+        </div>
+        <br>
+    </form>
 </div>
 
 
 <footer class="container-fluid text-center ">
-  <p>&copy; &lt;uninitialized variable Name&gt;</p>
+    <p>&copy; &lt;uninitialized variable Name&gt;</p>
 </footer>
 
 </body>

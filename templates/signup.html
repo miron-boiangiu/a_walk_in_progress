@@ -1,99 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <title>A walk in progress - Signup</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="/public/mysignup.css">
+    <link rel="shortcut icon"
+          href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>A walk in progress - Signup</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/public/mysignup.css">
 
 </head>
 <body>
 <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="/"
+                       style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Home</a>
+                </li>
+                <li><a href="/profile"
+                       style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Profile</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if not session['username'] %}
+                    <li><a href="/login"><span
+                            class="glyphicon glyphicon-log-in"></span> Login</a>
+                    </li>
+                {% else %}
+                    <li><a href="/logout"><span
+                            class="glyphicon glyphicon-log-in"> Logged in as {{ session['username'] }}, click to log out.</span>
+                    </a></li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li ><a href="/" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Home</a></li>
-        <li><a href="/profile" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Profile</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        {% if not session['username'] %}
-        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        {% else %}
-        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"> Logged in as {{ session['username'] }}, click to log out.</span> </a></li>
-        {% endif %}
-      </ul>
-    </div>
-  </div>
 </nav>
-  
+
 
 <form action="" method="POST" style="border:1px solid #ccc">
     <div class="container">
-      <h1 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Sign Up</h1>
-      <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Please fill in this form to create an account.</p>
-      <hr>
+        <h1 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+            Sign Up</h1>
+        <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+            Please fill in this form to create an account.</p>
+        <hr>
 
-      <label for="username" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"><b>Username</b></label>
-      <input type="text" placeholder="Enter username" name="username" required>
+        <label for="username"
+               style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"><b>Username</b></label>
+        <input type="text" placeholder="Enter username" name="username"
+               required>
 
-      <label for="email" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"><b>Email</b></label>
-      <input type="text" placeholder="Enter Email" name="email" required>
-  
-      <label for="psw" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"><b>Password</b></label>
-      <input id="pwd" type="password" placeholder="Enter Password" name="psw" required>
-  
-      <label for="psw-repeat" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"><b>Repeat Password</b></label>
-      <input id="pwd2" type="password" placeholder="Repeat Password" name="psw2" required>
-      
-      <label>
-        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"> Remember me
-      </label>
-      
-      <p>By creating an account you agree to our <a href="#" style="color:dodgerblue" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Terms & Privacy</a>.</p>
-      {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: medium;"><b>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </b></ul>
-  {% endif %}
-{% endwith %}
-      <div class="clearfix">
-        <button type="reset" class="cancelbtn" name="cancel" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Reset</button>
-        <button onclick="matchPassword()" type="submit" class="signupbtn" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Sign Up</button>
-      </div>
+        <label for="email"
+               style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" required>
+
+        <label for="psw"
+               style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"><b>Password</b></label>
+        <input id="pwd" type="password" placeholder="Enter Password" name="psw"
+               required>
+
+        <label for="psw-repeat"
+               style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"><b>Repeat
+            Password</b></label>
+        <input id="pwd2" type="password" placeholder="Repeat Password"
+               name="psw2" required>
+
+        <label>
+            <input type="checkbox" checked="checked" name="remember"
+                   style="margin-bottom:15px"
+                   style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+            Remember me
+        </label>
+
+        <p>By creating an account you agree to our <a href="#"
+                                                      style="color:dodgerblue"
+                                                      style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Terms
+            & Privacy</a>.</p>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes
+                    style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: medium;">
+                    <b>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </b></ul>
+            {% endif %}
+        {% endwith %}
+        <div class="clearfix">
+            <button type="reset" class="cancelbtn" name="cancel"
+                    style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                Reset
+            </button>
+            <button onclick="matchPassword()" type="submit" class="signupbtn"
+                    style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                Sign Up
+            </button>
+        </div>
     </div>
-  </form>
+</form>
 
 
 <footer class="container-fluid text-center">
-  <p>&copy; &lt;uninitialized variable Name&gt;</p>
+    <p>&copy; &lt;uninitialized variable Name&gt;</p>
 </footer>
 
 </body>
 <script>
-  function matchPassword() {  
-  var pw1 = document.getElementById("pwd");  
-  var pw2 = document.getElementById("pwd2");  
-  if(pw1 != pw2)  
-  {   
-    return false;
-  } else {  
-    return true; 
-  }  
-}  
+    function matchPassword() {
+        var pw1 = document.getElementById("pwd");
+        var pw2 = document.getElementById("pwd2");
+        if (pw1 != pw2) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 </script>
 </html>
 

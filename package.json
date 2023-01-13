@@ -1,0 +1,16 @@
+{
+  "name": "A walk in progress",
+  "version": "1.0.0",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "html-webpack-plugin": "^5.5.0",
+    "path-browserify": "^1.0.1",
+    "requirejs": "^2.3.6",
+    "util": "^0.12.5",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  },
+  "devDependencies": {
+    "node-polyfill-webpack-plugin": "^2.0.1"
+  }
+}

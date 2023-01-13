@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  server:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+      args:
+        API_KEY: "${API_KEY}"
+    image: "map-app-server-image"
+    container_name: "map-app-server"
+    ports:
+      - "5000:5000"
+    volumes:
+      - type: bind
+        source: ./database/database.db
+        target: /app/database/database.db
+    network_mode: "host"

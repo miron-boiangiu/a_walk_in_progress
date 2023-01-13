@@ -1,71 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <title>A walk in progress</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="/public/mystyle.css">
+    <link rel="shortcut icon"
+          href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>A walk in progress</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/public/mystyle.css">
 
 </head>
 <body>
 
 <nav class="navbar navbar-inverse ">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle " data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle " data-toggle="collapse"
+                    data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="/"
+                       style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Home</a>
+                </li>
+                <li><a href="/profile"
+                       style="    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Profile</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if not session['username'] %}
+                    <li><a href="/login"><span
+                            class="glyphicon glyphicon-log-in"></span> Login</a>
+                    </li>
+                {% else %}
+                    <li><a href="/logout"><span
+                            class="glyphicon glyphicon-log-in"> Logged in as {{ session['username'] }}, click to log out.</span>
+                    </a></li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li><a href="/" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Home</a></li>
-        <li><a href="/profile" style="    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Profile</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        {% if not session['username'] %}
-        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        {% else %}
-        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"> Logged in as {{ session['username'] }}, click to log out.</span> </a></li>
-        {% endif %}
-      </ul>
-    </div>
-  </div>
 </nav>
-  
-<div class="container-fluid text-center" style="overflow-y:scroll; height:100%;">    
-  <div class="row content">
-    <div class="col-sm-2 sidenav">
-    </div>
-    <div class="col-sm-8 text-left" style="height:50%;"> 
-      <h1 class="game_name"><b>A walk in progress</b></h1>
-      <div class="class_to_align"><button class="play_btn" ><a href="/game" class="color1">Let's go!</a></button></div>
-      <hr>
-      <h3 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: center;">Have you been stuck inside with no energy to plan the perfect outing? Fret no longer!</h3>
-      <p class="description_game" style="text-align: center; font-size: large;"> 'A walk in progress' is a web app specifically designed to come in handy when boredom and lack of inspiration hit you the hardest.
-      Choose one of the destinations and take a break from the difficulties of life!
-      <br>
-      <br>
-      Don't worry if you haven't found a route that you fancy yet, more will be coming soon, along with the option to create your own, custom made trips.
-      <br><br>
-      Let yourself feel like a backpack cat!
-      <br><br>
-        <img src="/public/image.webp"  height="390" style="padding-bottom: 50px;">
-      </p>
 
+<div class="container-fluid text-center"
+     style="overflow-y:scroll; height:100%;">
+    <div class="row content">
+        <div class="col-sm-2 sidenav">
+        </div>
+        <div class="col-sm-8 text-left" style="height:50%;">
+            <h1 class="game_name"><b>A walk in progress</b></h1>
+            <div class="class_to_align">
+                <button class="play_btn"><a href="/game" class="color1">Let's
+                    go!</a></button>
+            </div>
+            <hr>
+            <h3 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: center;">
+                Have you been stuck inside with no energy to plan the perfect
+                outing? Fret no longer!</h3>
+            <p class="description_game"
+               style="text-align: center; font-size: large;"> 'A walk in
+                progress' is a web app specifically designed to come in handy
+                when boredom and lack of inspiration hit you the hardest.
+                Choose one of the destinations and take a break from the
+                difficulties of life!
+                <br>
+                <br>
+                Don't worry if you haven't found a route that you fancy yet,
+                more will be coming soon, along with the option to create your
+                own, custom made trips.
+                <br><br>
+                Let yourself feel like a backpack cat!
+                <br><br>
+                <img src="/public/img/image.webp" height="390"
+                     style="padding-bottom: 50px;">
+            </p>
+
+        </div>
+        <div class="col-sm-2 sidenav">
+        </div>
     </div>
-    <div class="col-sm-2 sidenav">
-    </div>
-  </div>
 </div>
 
 <footer class="container-fluid text-center">
-  <p>&copy; &lt;uninitialized variable Name&gt;</p>
+    <p>&copy; &lt;uninitialized variable Name&gt;</p>
 </footer>
 
 </body>
