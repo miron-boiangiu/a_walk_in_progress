@@ -1,6 +1,6 @@
 
 CREATE TABLE trips (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user integer NOT NULL,
-    trip_id integer NOT NULL
+    uid INTEGER NOT NULL,
+    trip_id INTEGER NOT NULL
 );

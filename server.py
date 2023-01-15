@@ -1,4 +1,3 @@
-import os
 import re
 import sqlite3
 
@@ -14,40 +13,33 @@ current_quest = 0
 
 def check_user_info(username, email, password, password2):
     regex_email = r"^\S+@\S+\.\S+$"
-    regex_name = r"^(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
-    SpecialSym = ['$', '@', '#', '%', '!']
+    regex_pass = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
 
-    print("Entered function")
     if len(username) >= 30:
-        print("1")
+        flash("Username must be less than 30 characters", "error")
         return 0
+
     if password != password2:
-        print("1")
         flash("Passwords don't match!", "error")
         return 0
 
     if not re.fullmatch(regex_email, email):
-        print("2")
+        flash("Invalid email", "error")
         return 0
 
-    if not re.fullmatch(regex_name, username):
-        print("3")
+    if not re.fullmatch(regex_pass, password):
+        flash(
+                "Password must be at least 8 characters and must contain at "
+                "least one uppercase, one lowercase and one number",
+                "error"
+        )
         return 0
 
-    if len(password) < 6 or len(password) > 30:
-        print("4")
-        return 0
-
-    if not any(
-            char.isdigit() or char.islower() or char.isupper()
-            or char in SpecialSym for char in password
-    ):
-        return 0
     return 1
 
 
 def get_db_connection():
-    conn = sqlite3.connect('database/database.db')
+    conn = sqlite3.connect('config/database/database.db')
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -63,16 +55,13 @@ def profile():
     existing_users = conn.execute(command).fetchall()
     conn.close()
 
-    current_game_id = session.get('game_id')
-    if not current_game_id:
-        return redirect("/")
-
     conn = get_db_connection()
-    command = 'SELECT * FROM trips WHERE user="{}"'.format(
-            session.get('username')
+    command = 'SELECT * FROM trips WHERE uid="{}"'.format(
+            existing_users[0]['uid']
     )
     trips = conn.execute(command).fetchall()
     conn.close()
+
     return render_template("cont.html", user = existing_users[0], trips = trips)
 
 
@@ -83,24 +72,29 @@ def endtrip():
         return redirect("/")
 
     conn = get_db_connection()
-    command = 'SELECT * FROM trips WHERE user="{}" AND trip_id={}'.format(
-            session.get('username'), current_game_id
+    command = 'SELECT uid FROM users WHERE username="{}"'.format(
+            session.get('username')
     )
+    uid = conn.execute(command).fetchall()
+    print(uid)
+
+    command = 'SELECT * FROM trips WHERE uid={} AND trip_id={}'.format(
+            int(uid[0]["uid"]), current_game_id
+    )
+
     existing_users = conn.execute(command).fetchall()
     if len(existing_users) != 0:
         conn.close()
-        print("User already existing!")
-        flash("User already exists!", "error")
         return redirect("/")
 
     command = 'SELECT * FROM quests WHERE id={}'.format(current_game_id)
     trip_name = conn.execute(command).fetchall()[0][2]
 
-    print("Adding game")
     conn.execute(
-            'INSERT INTO trips (user, trip_id, name) VALUES (?, ?, ?)',
-            (session.get('username'), current_game_id, trip_name)
+            'INSERT INTO trips (uid, trip_id, name) VALUES (?, ?, ?)',
+            (int(uid[0]["uid"]), current_game_id, trip_name)
     )
+
     conn.commit()
     conn.close()
     return redirect("/")
@@ -109,35 +103,35 @@ def endtrip():
 @app.route("/signup", methods = ['GET', 'POST'])
 def signup():
     if request.method == "POST":
-        print("test")
         username = request.form.get("username", "")
         password = request.form.get("psw", "")
         password2 = request.form.get("psw2", "")
 
         email = request.form.get("email", "")
         valid_data = check_user_info(username, email, password, password2)
+
         if valid_data:
             conn = get_db_connection()
             command = 'SELECT * FROM users WHERE username="{}" OR mail="{}"'. \
                 format(username, email)
 
-            print(command)
             existing_users = conn.execute(command).fetchall()
 
             if len(existing_users) != 0:
                 conn.close()
-                print("User already existing!")
+
                 flash("User already exists!", "error")
                 return render_template("signup.html")
 
-            print("Valid data")
             password = generate_password_hash(password, "sha256")
             conn.execute(
                     'INSERT INTO users (username, password, mail) VALUES \
                     (?, ?, ?)', (username, password, email)
             )
+
             conn.commit()
             conn.close()
+
             return redirect("/login")
 
     return render_template("signup.html")
@@ -146,41 +140,30 @@ def signup():
 @app.route("/login", methods = ['GET', 'POST'])
 def login():
     if request.method == "POST":
-        print("test")
         username = request.form.get("uname", "")
         password = request.form.get("psw", "")
-        valid_data = check_user_info(
-                username, "test_email@test.com", password, password
-        )
 
-        if valid_data:
-            conn = get_db_connection()
-            command = 'SELECT * FROM users WHERE username="{}" OR mail="{}"'. \
-                format(username, username)
+        conn = get_db_connection()
+        command = 'SELECT * FROM users WHERE username="{}" OR mail="{}"'. \
+            format(username, username)
 
-            print(command)
-            existing_users = conn.execute(command).fetchall()
-            if len(existing_users) == 0:
-                conn.close()
-
-                print("User doesn't exist!")
-                flash("User doesn't exist!", "error")
-
-                return render_template("login_page.html")
-
-            print("Valid data")
-            if check_password_hash(existing_users[0][2], password):
-                print("Valid password! Logging user in")
-
-                conn.close()
-                session['username'] = existing_users[0][1]
-
-                return redirect("/")
-
-            print("Passwords don't match")
-            flash("Wrong password!", "error")
-
+        existing_users = conn.execute(command).fetchall()
+        if len(existing_users) == 0:
             conn.close()
+
+            flash("Wrong credentials!", "error")
+
+            return render_template("login_page.html")
+
+        if check_password_hash(existing_users[0][2], password):
+            conn.close()
+            session['username'] = existing_users[0][1]
+
+            return redirect("/")
+
+        flash("Wrong credentials!", "error")
+
+        conn.close()
 
     return render_template("login_page.html")
 
@@ -214,12 +197,12 @@ def game():
         all_quests = conn.execute(command).fetchall()
 
         conn.close()
-        print(quest[0])
 
         return render_template(
                 "Game.html", quest = quest[0], current_quest = current_quest,
                 got_request = got_request, all_quests = all_quests
         )
+
     return "Invalid game id."
 
 
@@ -234,4 +217,4 @@ def favicon():
 
 
 if __name__ == "__main__":
-    app.run(host = "0.0.0.0", debug = True)
+    app.run(host = "0.0.0.0", port = 8080, debug = True)
