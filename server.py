@@ -234,7 +234,4 @@ def favicon():
 
 
 if __name__ == "__main__":
-    if os.getenv("API_KEY") == "":
-        exit(1)
-
     app.run(host = "0.0.0.0", debug = True)
