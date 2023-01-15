@@ -42,16 +42,17 @@ The goal of the project was to let users relive their experiences, plan their fu
 
 ### Passing your API key to the server
 
-Edit .environment_variables to have your Google Maps API key.
+> Note: You can also leave the key value empty to run the API in development mode.
 
-<br>
-
-Alternatively, you can also run this command yourself before building the image:
+You need to have a .envrc file in the root of the project, which sets the following environment variable:
 
 ```bash
 export API_KEY=<your_api_key>
 ```
-You can also leave the value empty to run the API in development mode.
+
+Also run "direnv allow ." in the root of the project.
+
+Alternatively, you can also run the command in the terminal yourself before building the image.
 
 <br>
 
