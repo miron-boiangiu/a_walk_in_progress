@@ -1,6 +1,6 @@
 <div id="top"></div>
 
- # A Walk In Progress - BestEM 2022, Adobe's Task
+ # A Walk In Progress
 
 ## About the project
 
