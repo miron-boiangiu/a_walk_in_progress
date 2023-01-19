@@ -13,7 +13,7 @@ current_quest = 0
 
 def check_user_info(username, email, password, password2):
     regex_email = r"^\S+@\S+\.\S+$"
-    regex_pass = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
+    regex_pass = r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
 
     if len(username) >= 30:
         flash("Username must be less than 30 characters", "error")
