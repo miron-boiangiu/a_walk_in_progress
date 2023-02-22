@@ -23,8 +23,6 @@ they're reached.
   with Docker.
 * Stefan Mihaela: Made the application’s front-end and connected it with the
   back-end.
-* Baceanu Robert: Worked on the app’s front-end and its connection with the
-  back-end.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
