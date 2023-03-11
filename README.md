@@ -19,7 +19,7 @@ they're reached.
 
 * Boiangiu Victor-Miron: Coded the application’s back-end and created the
   database.
-* Limberea Gabriela: Worked on the app’s back-end and deployed the application
+* Limberea Gabriela: Worked on the application's back-end and deployed the application
   with Docker.
 * Stefan Mihaela: Made the application’s front-end and connected it with the
   back-end.
